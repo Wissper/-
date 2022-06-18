@@ -31,3 +31,19 @@ int main(){
 	
 	return 0;
 }
+
+int setflag(vector<vector<int>>& graph, vector<int>& flag, int i){
+    if(flag[i] != 0) return flag[i];
+    flag[i] = -1;
+    for(int j=0; j<graph[i].size(); j++){
+        int res = setflag(graph, flag, graph[i][j]);
+        if(res == -1){
+            flag[i] = -1;
+            break;
+        }
+        else{
+            flag[i] = 1;
+        }
+    }
+    return flag[i];
+}
