@@ -50,3 +50,27 @@ bool isIPv4(string queryIP){
     if(numOfPoint != 3) return false;
     return true;
 }
+
+bool isIPv6(string queryIP){
+    int conseqNum = 0;
+    int num = 0;
+    for(int i=0; i<queryIP.length(); i++){
+        if(queryIP[i] == ':'){
+            num++;
+            if(conseqNum == 0) return false;
+            conseqNum = 0;
+            continue;
+        }
+        if((queryIP[i]>='0' && queryIP[i]<='9') || (queryIP[i]>='a' && queryIP[i]<='f') || 
+        (queryIP[i]>='A' && queryIP[i]<='F')){
+            conseqNum++;
+        }
+        else{
+            return false;
+        }
+        if(conseqNum > 4) return false;
+    }
+    if (num != 7) return false;
+    return true;
+}
+
