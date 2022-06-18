@@ -8,6 +8,8 @@ bool isIPv6(string queryIP);
 int main(){
 	bool flag1 = false;
     bool flag2 = false;
+    string queryIP;
+    cin >> queryIP;
     for(int i=0; i<queryIP.length(); i++){
         if(queryIP[i] == '.'){
             flag1 = isIPv4(queryIP);
@@ -26,30 +28,39 @@ int main(){
         ans = "IPv6";
     }
     else ans = "Neither";
+    
+    cout << ans << endl;
 }
 
 bool isIPv4(string queryIP){
     int num = 0;
-    bool firstZero = true;
+    int firstZero = 0;
     int numOfPoint = 0;
+    int conseqNum = 0;
     for(int i=0; i<queryIP.size(); i++){
         if(queryIP[i] == '.'){
+            if(conseqNum == 0) return false;
             num = 0;
-            firstZero = true;
+            conseqNum = 0;
+            firstZero = 0;
             numOfPoint++;
             continue;
         }
         if(queryIP[i] > '9' || queryIP[i] <'0') return false;
-        if(queryIP[i] == '0'){
-            if(firstZero) firstZero = false;
-            else return false;
-        }
+        if(firstZero == 1) return false;
+        conseqNum++;
         num = num * 10 + queryIP[i] - '0';
         if(num > 255) return false;
+        if(queryIP[i] == '0'){
+            if(firstZero == 0) firstZero = 1;
+        }
+        else firstZero = -1;
     }
     if(numOfPoint != 3) return false;
+    if(queryIP[queryIP.length()-1] == '.') return false;
     return true;
 }
+
 
 bool isIPv6(string queryIP){
     int conseqNum = 0;
@@ -70,6 +81,7 @@ bool isIPv6(string queryIP){
         }
         if(conseqNum > 4) return false;
     }
+    if(queryIP[queryIP.length()-1] == ':') return false;
     if (num != 7) return false;
     return true;
 }
