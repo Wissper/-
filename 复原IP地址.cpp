@@ -40,6 +40,11 @@ vector<string> parse(string s, int step){
             return ans;
         }
         else{
+            int res = 0;
+            for(int i=0; i<s.length(); i++){
+                res = res*10 + s[i] - '0';
+            }
+            if(res > 255) return ans;
             ans.push_back(s);
             return ans;
         }
