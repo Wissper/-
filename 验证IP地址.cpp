@@ -27,3 +27,26 @@ int main(){
     }
     else ans = "Neither";
 }
+
+bool isIPv4(string queryIP){
+    int num = 0;
+    bool firstZero = true;
+    int numOfPoint = 0;
+    for(int i=0; i<queryIP.size(); i++){
+        if(queryIP[i] == '.'){
+            num = 0;
+            firstZero = true;
+            numOfPoint++;
+            continue;
+        }
+        if(queryIP[i] > '9' || queryIP[i] <'0') return false;
+        if(queryIP[i] == '0'){
+            if(firstZero) firstZero = false;
+            else return false;
+        }
+        num = num * 10 + queryIP[i] - '0';
+        if(num > 255) return false;
+    }
+    if(numOfPoint != 3) return false;
+    return true;
+}
