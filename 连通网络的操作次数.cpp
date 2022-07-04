@@ -47,6 +47,10 @@ public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         int num = connections.size();
         if(num < n-1) return -1;
-        
+        UnionFind uf(n);
+        for(int i=0; i<num; i++){
+            uf.unite(connections[i][0], connections[i][1]);
+        }
+        return uf.setCount - 1;
     }
 };
