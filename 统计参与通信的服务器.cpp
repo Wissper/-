@@ -17,6 +17,8 @@ public:
                                 ans++;
                             }
                         }
+                    }
+                    for(int x=0; x<grid.size(); x++){
                         if(grid[x][j] == 1 && x != i){
                             if(flag[i][j]){
                                 flag[i][j] = 0;
